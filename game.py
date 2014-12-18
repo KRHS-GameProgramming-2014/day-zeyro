@@ -15,6 +15,7 @@ bg = pygame.image.load("Resources/Object/Background/Sure.png")
 
 bgColor = r,g,b = 200, 0, 200
 screen = pygame.display.set_mode(size)
+fullscreen = False 
 bgImage = pygame.image.load("Resources/Object/Background/Sure.png").convert()
 bgImage = pygame.transform.scale (bgImage, (800, 600))
 bgRect = bgImage.get_rect()
@@ -39,6 +40,14 @@ while True:
                 player.go("down")
             if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                 player.go("left")
+            if event.key == pygame.K_RETURN :
+                if event.mod == pygame.KMOD_RALT:
+					if fullscreen:
+						pygame.display.set_mode(size)
+						fullscreen = False
+					else:
+						pygame.display.set_mode(size, pygame.FULLSCREEN)
+						fullscreen = True
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_w or event.key == pygame.K_UP:
                 player.go("stop up")
@@ -49,7 +58,7 @@ while True:
             if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                 player.go("stop left")
         
-    if len(balls) < 10:
+    if len(balls) < 3:
         if random.randint(0, 1*60) == 0:
             balls += [Ball("Resources/Object/Zombie/zombie.png",
                       [random.randint(0,10), random.randint(0,10)],
