@@ -45,7 +45,7 @@ while True:
                 if event.mod & pygame.KMOD_RALT: #Binary and with KMOD_RIGHT to filter out other mod keys
                     if fullscreen:
                         pygame.display.set_mode(size)
-                        fullscreen = False
+                        fullscreen = True
                     else:
                         pygame.display.set_mode(size, pygame.FULLSCREEN)
                         fullscreen = True
@@ -93,4 +93,4 @@ while True:
     screen.blit(player.image, player.rect)
     #screen.blit(timer.image, timer.rect)
     pygame.display.flip()
-    clock.tick(60)
+    clock.tick(45)
