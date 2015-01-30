@@ -11,6 +11,7 @@ class Ball():
 		self.didBounceX = False
 		self.didBounceY = False
 		self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
+		self.living = True
 		
 	def place(self, pos):
 		self.rect.center = pos
@@ -58,7 +59,11 @@ class Ball():
 		y2 = pt[1]
 		return math.sqrt(((x2-x1)**2) + ((y2-y1)**2))
 		
-		
+	def collideBullet(self, other):
+		if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
+			if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
+				if (self.radius + other.radius) > self.distance(other.rect.center):
+					self.living = False	
 		
 		
 		

@@ -1,17 +1,22 @@
-import pygame
+import math,sys,pygame
 from Ball import Ball
 
 class Bullet(Ball):
-	def __init__(self, pos, bspeed, heading, heading2 = None):
+	def __init__(self, pos, bspeed, heading):
 		Ball.__init__(self, "Resources/Object/Bullet/bullet.png", [0,0], pos)
-		if heading == "up" or heading2 == "up":
+		if heading == "up":
 			self.speedy = -bspeed
-		if heading == "down" or heading2 == "down":
+			self.image = pygame.image.load("Resources/Object/Bullet/bulletup.png")
+		if heading == "down":
 			self.speedy = bspeed
-		if heading == "right" or heading2 == "right":
+			self.image = pygame.image.load("Resources/Object/Bullet/bulletdown.png")	
+		if heading == "right":
 			self.speedx = bspeed
-		if heading == "left" or heading2 == "left":
+			self.image = pygame.image.load("Resources/Object/Bullet/bulletright.png")
+		if heading == "left":
 			self.speedx = -bspeed
+			self.image = pygame.image.load("Resources/Object/Bullet/bulletleft.png")
+		self.rect = self.image.get_rect(center = self.rect.center)
 
 	def collideZombie(self, other):
 		if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
@@ -27,5 +32,4 @@ class Bullet(Ball):
 		if not self.didBounceY:
 			if self.rect.top < 0 or self.rect.bottom > height:
 				self.living = False
-        
-    
+
