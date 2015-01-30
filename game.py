@@ -4,6 +4,7 @@ from Player import Player
 #from HUD import Text
 #from HUD import Score
 
+
 pygame.init()
 
 clock = pygame.time.Clock()
