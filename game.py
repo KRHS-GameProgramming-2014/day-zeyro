@@ -1,6 +1,7 @@
 import pygame, sys, random
 from Ball import Ball
 from Player import Player
+from Bullet import Bullet
 #from HUD import Text
 #from HUD import Score
 
@@ -28,6 +29,8 @@ balls += [Ball("Resources/Object/Zombie/zombie.png", [4,5], [250, 275])]
 #timerWait = 0
 #timerWaitMax = 6
 
+projectiles = []
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
@@ -40,6 +43,8 @@ while True:
                 player.go("down")
             if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                 player.go("left")
+            if event.key == pygame.K_e or event.key == pygame.K_q:
+                projectiles += player.attack("Bullet")
             if event.key == pygame.K_RETURN :
                 print event.mod, pygame.KMOD_RALT
                 if event.mod & pygame.KMOD_RALT: #Binary and with KMOD_RIGHT to filter out other mod keys
@@ -72,6 +77,9 @@ while True:
        #timerWait = 0
        #timer.increaseScore(.1)
     player.update(width, height)
+    for projectile in projectiles:
+        print projectile
+        projectile.update(width, height)
     #timer.update()
     for ball in balls:
         ball.update(width, height)
@@ -84,6 +92,7 @@ while True:
     #for ball in balls:
        #if not ball.living:
            #balls.remove(ball)
+           
     
     bgColor = r,g,b
     screen.fill(bgColor)
@@ -92,5 +101,8 @@ while True:
         screen.blit(ball.image, ball.rect)
     screen.blit(player.image, player.rect)
     #screen.blit(timer.image, timer.rect)
+    for projectile in projectiles:
+        projectile.image = [pygame.image.load("Resources/Object/Bullet/Bullet.png")]
+		screen.blit(projectile.image, projectile.rect)
     pygame.display.flip()
     clock.tick(45)
