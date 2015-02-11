@@ -11,6 +11,7 @@ class Ball():
         self.didBounceX = False
         self.didBounceY = False
         self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
+        self.living = True
         
     def place(self, pos):
         self.rect.center = pos
@@ -26,22 +27,22 @@ class Ball():
         self.rect = self.rect.move(self.speed)
         
     def facePlayer(self, pt):
-		xdiff = pt[0] - self.rect.center[0]
-		ydiff = pt[1] - self.rect.center[1]
-		 
-		if xdiff > 0: #go right
-				self.speedx = self.maxSpeed
-		elif xdiff < 0: #go left
-				self.speedx = -self.maxSpeed
-		else:
-				self.speedx = 0
-				
-		if ydiff > 0: #go down
-				self.speedy = self.maxSpeed
-		elif ydiff < 0: #go up
-				self.speedy = -self.maxSpeed
-		else:
-				self.speedy = 0
+        xdiff = pt[0] - self.rect.center[0]
+        ydiff = pt[1] - self.rect.center[1]
+         
+        if xdiff > 0: #go right
+                self.speedx = self.maxSpeed
+        elif xdiff < 0: #go left
+                self.speedx = -self.maxSpeed
+        else:
+                self.speedx = 0
+                
+        if ydiff > 0: #go down
+                self.speedy = self.maxSpeed
+        elif ydiff < 0: #go up
+                self.speedy = -self.maxSpeed
+        else:
+                self.speedy = 0
         
     def collideWall(self, width, height):
         if not self.didBounceX:
@@ -76,7 +77,11 @@ class Ball():
         y2 = pt[1]
         return math.sqrt(((x2-x1)**2) + ((y2-y1)**2))
         
-        
+    def collideBullet(self, other):
+        if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
+            if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
+                if (self.radius + other.radius) > self.distance(other.rect.center):
+                    self.living = False 
         
         
         

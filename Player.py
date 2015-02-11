@@ -1,6 +1,7 @@
 import pygame
 from Ball import Ball
 from Bullet import Bullet
+from Gun import Gun
 
 class Player(Ball):
     def __init__(self, pos):
@@ -19,17 +20,21 @@ class Player(Ball):
         self.image = self.images[self.frame]
         self.rect = self.image.get_rect(center = self.rect.center)
         self.maxSpeed = 8
-        self.bullet = False
-        self.bulletCount = 0
-        self.maxBulletCount = 10
-        self.bulletCoolDown = 0
-        self.bulletCoolDownMax = 100
+        self.pistol = Gun("pistol")
+        self.gun = self.pistol
+        self.shooting = False
             
     def update(self, width, height):
         Ball.update(self, width, height)
         self.animate()
         self.changed = False
-        
+        print self.gun.coolDown
+        if self.gun.coolDown > 0:
+            if self.gun.coolDown < self.gun.coolDownMax:
+                self.gun.coolDown += 1
+            else:
+                self.gun.coolDown = 0
+                
     def collideWall(self, width, height):
         if not self.didBounceX:
             #print "trying to hit Wall"
@@ -42,14 +47,6 @@ class Player(Ball):
                 self.speedy = 0
                 self.didBounceY = True
                 #print "hit xWall"
-    
-    def attack(self, atk):
-        if atk == "bullet" and self.bulletCount == 0 and self.bulletCoolDown == 0:
-            self.bullet = True
-            return [Bullet(self)]
-        else:
-			return []
-        
     
     def animate(self):
         if self.waitCount < self.maxWait:
@@ -100,7 +97,16 @@ class Player(Ball):
             self.speedx = -self.maxSpeed
         elif direction == "stop left":
             self.speedx = 0
-
+    
+    def shoot(self, command = ""):
+        if command == "stop":
+            self.shooting = False
+        if self.gun.coolDown == 0:
+            self.gun.coolDown += 1
+            if self.gun.kind == "pistol":
+                return [Bullet(self.rect.center, self.gun.gunSpeed, self.facing)]
+        else:
+            return []        
 
 
 
