@@ -1,6 +1,7 @@
 import pygame, sys, random
 from Ball import Ball
 from Player import Player
+from Bullet import Bullet
 #from HUD import Text
 #from HUD import Score
 
@@ -66,8 +67,7 @@ while True:
                 player.go("stop down")
             if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                 player.go("stop left")
-            if event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
-                player.shoot("stop")   
+        
     if len(balls) < 3:
         if random.randint(0, 1*60) == 0:
             balls += [Ball("Resources/Object/Zombie/zombie.png",
