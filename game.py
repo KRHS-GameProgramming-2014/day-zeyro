@@ -70,9 +70,9 @@ while True:
     if len(balls) < 3:
         if random.randint(0, 1*60) == 0:
             balls += [Ball("Resources/Object/Zombie/zombie.png",
-                      [random.randint(0,10), random.randint(0,10)],
-                      [random.randint(100, width-100), random.randint(100, height-100)])
-                      ]
+			  [random.randint(0,10), random.randint(0,10)],
+			  [random.randint(100, width-100), random.randint(100, height-100)])
+			]
                       
     #if timerWait < timerWaitMax:
        #timerWait += 1
