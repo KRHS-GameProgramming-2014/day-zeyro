@@ -2,6 +2,7 @@ import pygame, sys, random
 from Ball import Ball
 from Player import Player
 from Bullet import Bullet
+from Zombie import Zombie
 #from HUD import Text
 #from HUD import Score
 
@@ -22,8 +23,8 @@ bgImage = pygame.transform.scale (bgImage, (800, 600))
 bgRect = bgImage.get_rect()
 player = Player([width/20, height/20])
 
-balls = []
-balls += [Ball("Resources/Object/Zombie/zombie.png", [4,5], [250, 275])]
+zombies = []
+zombies += [Zombie("Resources/Object/Zombie/zombie.png", [4,5], [250, 275])]
 
 bullets = []
 
@@ -67,9 +68,9 @@ while True:
             if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                 player.go("stop left")
         
-    if len(balls) < 3:
+    if len(zombies) < 3:
         if random.randint(0, 1*60) == 0:
-            balls += [Ball("Resources/Object/Zombie/zombie.png",
+            zombies += [Zombie("Resources/Object/Zombie/zombie.png",
 			  [random.randint(0,10), random.randint(0,10)],
 			  [random.randint(100, width-100), random.randint(100, height-100)])
 			]
@@ -82,8 +83,8 @@ while True:
     player.update(width, height)
     #timer.update()
     
-    for ball in balls:
-        ball.update(width, height)
+    for zombie in zombies:
+        zombie.update(width, height)
     for bullet in bullets:
         bullet.update(width, height)   
         
@@ -92,27 +93,27 @@ while True:
            #bully.collideBall(victem)
            #bully.collidePlayer(player)
     for bullet in bullets:
-        for ball in balls:
-            bullet.collideZombie(ball)
+        for zombie in zombies:
+            bullet.collideZombie(zombie)
             #enemy.collideBullet(bullet)
     
-    for ball in balls:
+    for zombie in zombies:
         for bullet in bullets:
-            ball.collideBullet(bullet)
+            zombie.collideBullet(bullet)
     
     for bullet in bullets:
          if not bullet.living:
             bullets.remove(bullet)
             
-    for ball in balls:
-       if not ball.living:
-           balls.remove(ball)
+    for zombie in zombies:
+       if not zombie.living:
+           zombies.remove(zombie)
     
     bgColor = r,g,b
     screen.fill(bgColor)
     screen.blit(bg,bgRect)
-    for ball in balls:
-        screen.blit(ball.image, ball.rect)
+    for zombie in zombies:
+        screen.blit(zombie.image, zombie.rect)
     for bullet in bullets:
         screen.blit(bullet.image, bullet.rect)
     screen.blit(player.image, player.rect)
