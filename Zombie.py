@@ -11,19 +11,36 @@ class Zombie():
         self.didBounceX = False
         self.didBounceY = False
         self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
+        self.detectionRadius =  300
         self.living = True
+        self.maxSpeed = (math.fabs(speed[0] + math.fabs(speed[1]))/2)
         
     def place(self, pos):
         self.rect.center = pos
         
-    def update(self, width, height):
+    def update(self, width, height, player):
+        self.move(player)
+        self.collideWall(width, height)
+        if self.didBounceX or self.didBounceY:
+            self.changed = True
+        if self.didBounceX or self.didBounceY:
+            self.changed = True
+        if math.fabs(self.speedx) >= math.fabs(self.speedy):
+            if self.speedx >= 0:
+                self.facing = "right"
+            else:
+                self.facing = "left"
+        else:
+            if self.speedy >= 0:
+                self.facing = "down"
+            else:
+                self.facing = "up"
         self.didBounceX = False
         self.didBounceY = False
-        self.speed = [self.speedx, self.speedy]
-        self.move()
-        self.collideWall(width, height)
         
-    def move(self):
+    def move(self, player):
+        self.detect(player)
+        self.speed = [self.speedx, self.speedy]
         self.rect = self.rect.move(self.speed)
 
     def collideWall(self, width, height):
@@ -64,3 +81,23 @@ class Zombie():
             if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
                 if (self.radius + other.radius) > self.distance(other.rect.center):
                     self.living = False
+                    
+    def detect(self, player):
+        if self.distance(player.rect.center) < self.detectionRadius:
+            pX = player.rect.center[0]
+            pY = player.rect.center[1]
+            zX = self.rect.center[0]
+            zY = self.rect.center[1]
+           
+            if pX > zX:
+                self.speedx = self.maxSpeed
+            elif pX < zX:
+                self.speedx = -self.maxSpeed
+            else:
+                self.speedx = 0
+            if pY > zY:
+                self.speedy = self.maxSpeed
+            elif pY < zY:
+                self.speedy = -self.maxSpeed
+            else:
+                self.speedy = 0

@@ -84,7 +84,7 @@ while True:
     #timer.update()
     
     for zombie in zombies:
-        zombie.update(width, height)
+        zombie.update(width, height, player)
     for bullet in bullets:
         bullet.update(width, height)   
         
