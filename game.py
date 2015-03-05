@@ -2,6 +2,7 @@ import pygame, sys, random
 from Ball import Ball
 from Player import Player
 from Bullet import Bullet
+from Wall import Wall
 from Zombie import Zombie
 #from HUD import Text
 #from HUD import Score
@@ -9,6 +10,7 @@ from Zombie import Zombie
 pygame.init()
 
 clock = pygame.time.Clock()
+walls = [Wall([0,0],[338,68])]
 
 width = 800 
 height = 600
@@ -68,7 +70,7 @@ while True:
             if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                 player.go("stop left")
         
-    if len(zombies) < 3:
+    if len(zombies) < 5:
         if random.randint(0, 1*60) == 0:
             zombies += [Zombie("Resources/Object/Zombie/zombie.png",
 			  [random.randint(0,10), random.randint(0,10)],
@@ -108,6 +110,8 @@ while True:
     for zombie in zombies:
        if not zombie.living:
            zombies.remove(zombie)
+    for wall in walls:
+        player.collideWall(wall)
     
     bgColor = r,g,b
     screen.fill(bgColor)
@@ -116,6 +120,8 @@ while True:
         screen.blit(zombie.image, zombie.rect)
     for bullet in bullets:
         screen.blit(bullet.image, bullet.rect)
+    for wall in walls:
+        screen.blit(wall.image, wall.rect)
     screen.blit(player.image, player.rect)
     #screen.blit(timer.image, timer.rect)
     pygame.display.flip()
