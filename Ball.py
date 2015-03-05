@@ -26,23 +26,7 @@ class Ball():
     def move(self):
         self.rect = self.rect.move(self.speed)
         
-    def facePlayer(self, pt):
-        xdiff = pt[0] - self.rect.center[0]
-        ydiff = pt[1] - self.rect.center[1]
-         
-        if xdiff > 0: #go right
-                self.speedx = self.maxSpeed
-        elif xdiff < 0: #go left
-                self.speedx = -self.maxSpeed
-        else:
-                self.speedx = 0
-                
-        if ydiff > 0: #go down
-                self.speedy = self.maxSpeed
-        elif ydiff < 0: #go up
-                self.speedy = -self.maxSpeed
-        else:
-                self.speedy = 0
+        
         
     def collideWall(self, width, height):
         if not self.didBounceX:

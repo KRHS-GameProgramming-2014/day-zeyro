@@ -7,7 +7,7 @@ class Player(Ball):
     def __init__(self, pos):
         Ball.__init__(self, "ball.png", [0,0], pos)
         self.upImages = [pygame.image.load("Resources/Object/Player/PlayerBack2.png")]
-        self.downImages = [pygame.image.load("Resources/Object/Player/Player.png")]
+        self.downImages = [pygame.image.load("Resources/Object/Player/PlayerForward.png")]
         self.leftImages = [pygame.image.load("Resources/Object/Player/PlayerLeft.png")]
         self.rightImages = [pygame.image.load("Resources/Object/Player/Player.png")]
         self.facing = "up"
