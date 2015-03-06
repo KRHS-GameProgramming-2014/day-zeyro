@@ -11,7 +11,14 @@ from Zombie import Zombie
 pygame.init()
 
 clock = pygame.time.Clock()
-walls = [Wall([0,0],[338,68])]
+walls = [Wall([0,200],[100,300]),
+        Wall([100,200],[200,300]),
+        Wall([200,200],[300,300]),
+        Wall([300,200],[400,300]),
+        Wall([400,200],[500,300]),
+        Wall([500,200],[600,300]),
+        Wall([600,200],[700,300]),
+        Wall([700,200],[800,300])]
 
 width = 800 
 height = 600
@@ -24,10 +31,10 @@ fullscreen = False
 bgImage = pygame.image.load("Resources/Object/Background/Sure.png").convert()
 bgImage = pygame.transform.scale (bgImage, (800, 600))
 bgRect = bgImage.get_rect()
-player = Player([width/20, height/20])
+player = Player([width/2, 500])
 
 zombies = []
-zombies += [Zombie("Resources/Object/Zombie/zombie.png", [4,5], [250, 275])]
+zombies += [Zombie("Resources/Object/Zombie/zombie.png", [4,5], [250, 400])]
 
 bullets = []
 
@@ -74,9 +81,9 @@ while True:
     if len(zombies) < 5:
         if random.randint(0, 1*60) == 0:
             zombies += [Zombie("Resources/Object/Zombie/zombie.png",
-			  [random.randint(0,10), random.randint(0,10)],
-			  [random.randint(100, width-100), random.randint(100, height-100)])
-			]
+              [random.randint(0,10), random.randint(0,10)],
+              [random.randint(100, width-100), random.randint(400, height-100)])
+            ]
                       
     #if timerWait < timerWaitMax:
        #timerWait += 1
@@ -111,18 +118,19 @@ while True:
     for zombie in zombies:
        if not zombie.living:
            zombies.remove(zombie)
-    for wall in walls:
-        player.collideWall(wall)
+           
     
     bgColor = r,g,b
     screen.fill(bgColor)
     screen.blit(bg,bgRect)
+    for wall in walls:
+        screen.blit(wall.image, wall.rect)
     for zombie in zombies:
         screen.blit(zombie.image, zombie.rect)
     for bullet in bullets:
         screen.blit(bullet.image, bullet.rect)
-    for wall in walls:
-        screen.blit(wall.image, wall.rect)
+    
+    
     screen.blit(player.image, player.rect)
     #screen.blit(timer.image, timer.rect)
     pygame.display.flip()

@@ -27,6 +27,7 @@ class Player(Ball):
     def update(self, width, height):
         Ball.update(self, width, height)
         self.animate()
+        self.collideWall(width, height)
         self.changed = False
         print self.gun.coolDown
         if self.gun.coolDown > 0:
@@ -39,14 +40,17 @@ class Player(Ball):
         if not self.didBounceX:
             #print "trying to hit Wall"
             if self.rect.left < 0 or self.rect.right > width:
+                self.speedx = -self.speedx
+                Ball.update(self, width, height)
                 self.speedx = 0
-                self.didBounceX = True
                 #print "hit xWall"
         if not self.didBounceY:
-            if self.rect.top < 0 or self.rect.bottom > height:
+            if self.rect.top < 250 or self.rect.bottom > height:
+                self.speedy = -self.speedy
+                Ball.update(self, width, height)
                 self.speedy = 0
-                self.didBounceY = True
                 #print "hit xWall"
+    
     
     def animate(self):
         if self.waitCount < self.maxWait:
@@ -76,12 +80,14 @@ class Player(Ball):
             self.facing = "up"
             self.changed = True
             self.speedy = -self.maxSpeed
+            self.speedx = 0
         elif direction == "stop up":
             self.speedy = 0
         elif direction == "down":
             self.facing = "down"
             self.changed = True
             self.speedy = self.maxSpeed
+            self.speedx = 0
         elif direction == "stop down":
             self.speedy = 0
             
@@ -89,12 +95,14 @@ class Player(Ball):
             self.facing = "right"
             self.changed = True
             self.speedx = self.maxSpeed
+            self.speedy = 0
         elif direction == "stop right":
             self.speedx = 0
         elif direction == "left":
             self.facing = "left"
             self.changed = True
             self.speedx = -self.maxSpeed
+            self.speedy = 0
         elif direction == "stop left":
             self.speedx = 0
     

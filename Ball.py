@@ -21,7 +21,7 @@ class Ball():
         self.didBounceY = False
         self.speed = [self.speedx, self.speedy]
         self.move()
-        self.collideWall(width, height)
+        
         
     def move(self):
         self.rect = self.rect.move(self.speed)

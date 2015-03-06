@@ -51,7 +51,7 @@ class Zombie():
                 self.didBounceX = True
                 #print "hit xWall"
         if not self.didBounceY:
-            if self.rect.top < 0 or self.rect.bottom > height:
+            if self.rect.top < 250 or self.rect.bottom > height:
                 self.speedy = -self.speedy
                 self.didBounceY = True
                 #print "hit xWall"
