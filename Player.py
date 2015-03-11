@@ -39,7 +39,7 @@ class Player(Ball):
     def collideWall(self, width, height):
         if not self.didBounceX:
             #print "trying to hit Wall"
-            if self.rect.left < 0 or self.rect.right > width:
+            if self.rect.left < -20 or self.rect.right > width + 20:
                 self.speedx = -self.speedx
                 Ball.update(self, width, height)
                 self.speedx = 0

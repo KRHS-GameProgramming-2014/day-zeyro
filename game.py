@@ -125,7 +125,7 @@ while True:
     screen.blit(bg,bgRect)
     for wall in walls:
         screen.blit(wall.image, wall.rect)
-    for zombie in zombies:
+    for zombie in zombies: 
         screen.blit(zombie.image, zombie.rect)
     for bullet in bullets:
         screen.blit(bullet.image, bullet.rect)
