@@ -34,7 +34,7 @@ bgRect = bgImage.get_rect()
 player = Player([width/2, 500])
 
 zombies = []
-zombies += [Zombie("Resources/Object/Zombie/zombie.png", [4,5], [250, 400])]
+zombies += [Zombie("Resources/Object/Zombie/ZombieForward.png", [4,5], [250, 400])]
 
 bullets = []
 
@@ -80,7 +80,7 @@ while True:
         
     if len(zombies) < 5:
         if random.randint(0, 1*60) == 0:
-            zombies += [Zombie("Resources/Object/Zombie/zombie.png",
+            zombies += [Zombie("Resources/Object/Zombie/ZombieForward.png",
               [random.randint(0,10), random.randint(0,10)],
               [random.randint(100, width-100), random.randint(400, height-100)])
             ]
