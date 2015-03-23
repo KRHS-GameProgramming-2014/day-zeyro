@@ -114,7 +114,14 @@ class Player(Ball):
             if self.gun.kind == "pistol":
                 return [Bullet(self.rect.center, self.gun.gunSpeed, self.facing)]
         else:
-            return []        
+            return []     
+            
+    def collideZombie(self, other):
+        if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
+            if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
+                if (self.radius + other.radius) > self.distance(other.rect.center):
+                    self.living = False
+                    print"poop"
 
 
 

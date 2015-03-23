@@ -36,7 +36,6 @@ bgImage = pygame.image.load("Resources/Object/Background/Sure.png").convert()
 bgImage = pygame.transform.scale (bgImage, (800, 600))
 bgRect = bgImage.get_rect()
 player = Player([width/2, 500])
-
 zombies = []
 zombies += [Zombie("Resources/Object/Zombie/ZombieForward.png", [4,5], [250, 400])]
 
@@ -111,7 +110,7 @@ while True:
 	        
 	    if len(zombies) < 5:
 	        if random.randint(0, 1*60) == 0:
-	            zombies += [Zombie("Resources/Object/Zombie/ZombieForward.png",
+	            zombies += [Zombie(
 	              [random.randint(0,10), random.randint(0,10)],
 	              [random.randint(100, width-100), random.randint(400, height-100)])
 	            ]
@@ -126,6 +125,7 @@ while True:
 	    
 	    for zombie in zombies:
 	        zombie.update(width, height, player)
+	        player.collideZombie(zombie)
 	    for bullet in bullets:
 	        bullet.update(width, height)   
 	        
