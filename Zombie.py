@@ -1,8 +1,11 @@
 import pygame, math
 
 class Zombie():
-    def __init__(self, image, speed = [0,0], pos = [0,0]):
-        self.image = pygame.image.load(image)
+    def __init__(self, speed = [0,0], pos = [0,0]):
+        self.upImage = pygame.image.load("Resources/Object/Zombie/ZombieForward.png")
+        self.downImage = pygame.image.load("Resources/Object/Zombie/ZombieBack.png")
+        self.leftImage = pygame.image.load("Resources/Object/Zombie/ZombieLeft.png")
+        self.rightImage = pygame.image.load("Resources/Object/Zombie/ZombieRight.png")
         self.rect = self.image.get_rect()
         self.speedx = speed[0]
         self.speedy = speed[1]
@@ -13,13 +16,19 @@ class Zombie():
         self.radius = (int(self.rect.height/2.0 + self.rect.width/2.0)/2) - 1
         self.detectionRadius =  300
         self.living = True
+        self.changed = False
         self.maxSpeed = (math.fabs(speed[0] + math.fabs(speed[1]))/2)
+        
+        self.image = self.images[self.frame]
+        
+        
         
     def place(self, pos):
         self.rect.center = pos
         
     def update(self, width, height, player):
         self.move(player)
+        self.animate()
         self.collideWall(width, height)
         if self.didBounceX or self.didBounceY:
             self.changed = True
@@ -68,7 +77,6 @@ class Zombie():
                         self.speedy = -self.speedy
                         self.didBounceY = True
                         #print "hit Ball"
-    
     def distance(self, pt):
         x1 = self.rect.center[0]
         y1 = self.rect.center[1]
@@ -91,14 +99,34 @@ class Zombie():
            
             if pX > zX:
                 self.speedx = self.maxSpeed
+                self.facing = "up"
             elif pX < zX:
                 self.speedx = -self.maxSpeed
+                self.facing = "down"
             else:
                 self.speedx = 0
             if pY > zY:
                 self.speedy = self.maxSpeed
+                self.facing = "right"
             elif pY < zY:
                 self.speedy = -self.maxSpeed
+                self.facing = "left"
             else:
                 self.speedy = 0
+<<<<<<< HEAD
                 
+=======
+                    
+    def animate(self):
+        if self.changed:    
+            if self.facing == "up":
+                self.images = self.upImages
+            elif self.facing == "down":
+                self.images = self.downImages
+            elif self.facing == "right":
+                self.images = self.rightImages
+            elif self.facing == "left":
+                self.images = self.leftImages
+            
+    
+>>>>>>> origin/master
