@@ -101,3 +101,4 @@ class Zombie():
                 self.speedy = -self.maxSpeed
             else:
                 self.speedy = 0
+                
