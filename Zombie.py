@@ -6,6 +6,7 @@ class Zombie():
         self.downImage = pygame.image.load("Resources/Object/Zombie/ZombieBack.png")
         self.leftImage = pygame.image.load("Resources/Object/Zombie/ZombieLeft.png")
         self.rightImage = pygame.image.load("Resources/Object/Zombie/ZombieRight.png")
+        self.image = self.upImage
         self.rect = self.image.get_rect()
         self.speedx = speed[0]
         self.speedy = speed[1]
@@ -18,8 +19,6 @@ class Zombie():
         self.living = True
         self.changed = False
         self.maxSpeed = (math.fabs(speed[0] + math.fabs(speed[1]))/2)
-        
-        self.image = self.images[self.frame]
         
         
         
@@ -113,20 +112,16 @@ class Zombie():
                 self.facing = "left"
             else:
                 self.speedy = 0
-<<<<<<< HEAD
                 
-=======
                     
     def animate(self):
         if self.changed:    
             if self.facing == "up":
-                self.images = self.upImages
+                self.images = self.upImage
             elif self.facing == "down":
-                self.images = self.downImages
+                self.images = self.downImage
             elif self.facing == "right":
-                self.images = self.rightImages
+                self.images = self.rightImage
             elif self.facing == "left":
-                self.images = self.leftImages
+                self.images = self.leftImage
             
-    
->>>>>>> origin/master
